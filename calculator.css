@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    background-color: #E6E6EA;
+    height: 6.9rem;
+    font-size: 2.5rem;
+    font-family: "Merriweather";
+}
+
+h1{
+    padding-top: 1rem;
+}
+
+#leftpart{
+    background-color: #1d2939;
+    height: 87vh;
+    width: 20%;
+}
+
+.menuoptions{
+    font-size: 1.8rem;
+    color: white;
+    padding-left: 1.4rem ;
+}
+
+#one{
+    padding-top: 2.5rem;
+}
+
+#two{
+    padding-top: 2.5rem;
+    padding-left: 0.2rem;
+}
+
+#three{
+    padding-top: 2.5rem;
+}
+
+#four{
+    padding-top: 2.5rem;
+}
+
+#five{
+    padding-top: 2.5rem;
+}
+
+#six{
+    padding-top: 2.5rem;
+}
+
+.links{
+    text-decoration: none;
+    color: white;
+}
+
+#rightpart{
+    background-color: #fcfdff;
+}
+
+#footer{
+    position: fixed;
+    bottom: 0px;
+}
+
+/*Till here this is the css of website template.*/
+
+.mainbody{
+    display: flex;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card-main {
+    margin-top: 7rem;
+    margin-left: 26.9rem;
+    background-color: transparent;
+    width: 22rem;
+    height: 25rem;
+    border: 1px solid #f1f1f1;
+    border-radius: 10px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flip-card-main img {
+    width: 100%;  /* Makes the image take full width */
+    height: 100%; /* Makes the image take full height */
+    object-fit: cover; /* Ensures the image covers the div properly */
+    border-radius: 10px; /* Ensures rounded corners match the div */
+}
+
+button{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: auto;
+    font-family: "Merriweather";
+    font-size: 1.5rem;
+    margin-top: 22.5rem;
+    width: 40%;
+    color: white;
+    border: 1px solid white;
+
+}
+
+button:hover{
+    cursor: pointer;
+    font-size: 2.1rem;
+    transition: 0.5s ease-in-out;
+}
+
+#flip-card-child{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1%;
+    position: relative;
+    z-index: 1;
+    margin-top: 8%;
+}
+
+.flip-card-hidden{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bbb;
+    margin-left: 1%;
+    width: 18.45rem;
+    height: 28rem;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+    display: none;
+}
+
+.hidden{
+    display: none;
+}
+
+.finalbuttons{
+    font-size: 1.5rem;
+}

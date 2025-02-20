@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    background-color: #E6E6EA;
+    height: 6.9rem;
+    font-size: 2.5rem;
+    font-family: "Merriweather";
+}
+
+h1{
+    padding-top: 1rem;
+}
+
+#leftpart{
+    background-color: #1d2939;
+    height: 87vh;
+    width: 20%;
+}
+
+.menuoptions{
+    font-size: 1.8rem;
+    color: white;
+    padding-left: 1.4rem ;
+}
+
+#one{
+    padding-top: 2.5rem;
+}
+
+#two{
+    padding-top: 2.5rem;
+    padding-left: 0.2rem;
+}
+
+#three{
+    padding-top: 2.5rem;
+}
+
+#four{
+    padding-top: 2.5rem;
+}
+
+#five{
+    padding-top: 2.5rem;
+}
+
+#six{
+    padding-top: 2.5rem;
+}
+
+.links{
+    text-decoration: none;
+    color: white;
+}
+
+#rightpart{
+    background-color: #fcfdff;
+}
+
+#footer{
+    position: fixed;
+    bottom: 0px;
+}
+
+/*Till here this is the css of website template.*/
+.mainbody{
+    display: flex;
+}
+
+.rows{
+    background-color: blue;
+    display: flex;
+} 
