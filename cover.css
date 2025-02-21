@@ -1,68 +1,149 @@
-*{
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
     margin: 0;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-.navbar{
+.navbar {
     background-color: #E6E6EA;
     height: 6.9rem;
     font-size: 2.5rem;
     font-family: "Merriweather";
+    display: flex;
 }
 
-h1{
+h1 {
+    padding-left: 88%;
     padding-top: 1rem;
 }
 
-#leftpart{
-    background-color: #1d2939;
-    height: 87vh;
-    width: 20%;
+.wrapper {
+    position: relative;
+    width: 25%;
+    border-radius: 12px;
+    padding: 20px 30px 120px;
+    background: #4070f4;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-top: 3%;
+    margin-left: 35%;
 }
 
-.menuoptions{
-    font-size: 1.8rem;
-    color: white;
-    padding-left: 1.4rem ;
+.form.login {
+    position: absolute;
+    left: 50%;
+    bottom: -86%;
+    transform: translateX(-50%);
+    width: calc(100% + 220px);
+    padding: 20px 140px;
+    border-radius: 50%;
+    height: 100%;
+    background: #fff;
+    transition: all 0.6s ease;
 }
 
-#one{
-    padding-top: 2.5rem;
+.wrapper.active .form.login {
+    bottom: -15%;
+    border-radius: 35%;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
 }
 
-#two{
-    padding-top: 2.5rem;
-    padding-left: 0.2rem;
+.form header {
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-#three{
-    padding-top: 2.5rem;
+.form.login header {
+    color: #333;
+    opacity: 0.6;
 }
 
-#four{
-    padding-top: 2.5rem;
+.wrapper.active .form.login header {
+    opacity: 1;
 }
 
-#five{
-    padding-top: 2.5rem;
+.wrapper.active .signup header {
+    opacity: 0.6;
 }
 
-#six{
-    padding-top: 2.5rem;
+.wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
 }
 
-.links{
+form input {
+    height: 60px;
+    outline: none;
+    border: none;
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.form login input{
+    padding: 0 20px;
+    margin: 0 120px;
+}
+
+.form.login input {
+    border: 1px solid #aaa;
+}
+
+.form.login input:focus {
+    box-shadow: 0 1px 0 #ddd;
+}
+
+form .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox input[type="checkbox"] {
+    height: 16px;
+    width: 16px;
+    accent-color: #fff;
+    cursor: pointer;
+}
+
+form .checkbox label {
+    cursor: pointer;
+    color: #fff;
+}
+
+form a {
+    color: #333;
     text-decoration: none;
-    color: white;
 }
 
-#rightpart{
-    background-color: #fcfdff;
+form a:hover {
+    text-decoration: underline;
 }
 
-#footer{
-    position: fixed;
-    bottom: 0px;
+form input[type="submit"] {
+    margin-top: 15px;
+    padding: none;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-/*Till here this is the css of website template.*/
+.form.login input[type="submit"] {
+    background: #4070f4;
+    color: #fff;
+    border: none;
+}
+
+.form.login form input{
+    margin: 0 120px;
+}

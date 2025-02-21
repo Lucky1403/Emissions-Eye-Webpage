@@ -13,45 +13,48 @@
 <body>
     <section class="header">
         <div class="navbar">
-
+            <img src="website logo.png" alt="Emission's Eye logo" width="auto" height="80%">
             <center>
                 <h1>EmissionsEye</h1>
             </center>
         </div>
     </section>
-    <section class="mainbody">
-        <div id="leftpart">
-            <div class="menuoptions">
-                <div id="one">
-                    <i class="fa-solid fa-house"></i>
-                    <a href="index.html" class="links">Dashboard</a>
-                </div>
-                <div id="two">
-                    <i class="fa-solid fa-calculator"></i>
-                    <a href="calculator.html" class="links">Emission Calculator</a>
-                </div>
-                <div id="three">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    <a href="history.html" class="links">History</a>
-                </div>
-                <div id="four">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <a href="education.html" class="links">Education</a>
-                </div>
-                <div id="five">
-                    <i class="fa-solid fa-user"></i>
-                    <a href="profile.html" class="links">Profile</a>
-                </div>
-                <div id="six">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <a href="cover.html" class="links">Logout</a>
-                </div>
+    <section class="wrapper">
+        <div class="form signup">
+          <header>Signup</header>
+          <form action="#">
+            <input type="text" placeholder="Full name" required />
+            <input type="text" placeholder="Email address" required />
+            <input type="password" placeholder="Password" required />
+            <div class="checkbox">
+              <input type="checkbox" id="signupCheck" />
+              <label for="signupCheck">I accept all terms & conditions</label>
             </div>
+            <input type="submit" value="Signup" />
+          </form>
         </div>
-        <div id="rightpart">
-
+        <div class="form login">
+          <header>Login</header>
+          <form action="#">
+            <input type="text" placeholder="Email address" required />
+            <input type="password" placeholder="Password" required />
+            <input type="submit" value="Login" />
+          </form>
         </div>
-    </section>
+        
+        <script>
+          const wrapper = document.querySelector(".wrapper"),
+            signupHeader = document.querySelector(".signup header"),
+            loginHeader = document.querySelector(".login header");
+          loginHeader.addEventListener("click", () => {
+            wrapper.classList.add("active");
+          });
+          signupHeader.addEventListener("click", () => {
+            wrapper.classList.remove("active");
+          });
+        </script>
+      </section>
+    
 
 </body>
 </html>

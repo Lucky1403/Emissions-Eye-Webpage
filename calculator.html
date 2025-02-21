@@ -13,7 +13,7 @@
 <body>
     <section class="header">
         <div class="navbar">
-
+            <img src="website logo.png" alt="Emission's Eye logo" width="auto" height="80%">
             <center>
                 <h1>EmissionsEye</h1>
             </center>
@@ -54,13 +54,51 @@
                   <button onclick="flipCard()">Start</button>
             </div>
             <div id="flip-card-child" class="hidden">
-                <div id="card-one" class="flip-card-hidden">
-                    <img src="" alt="">
-                    <button class="finalbuttons">Next</button>
+                <div id="card-one" class="flip-card-hidden active">
+                    <h2>How do you travel?</h2>
+                    
+                    <!-- Question 1 -->
+                    <label>How many kilometers have you driven?</label>
+                    <select id="vehicleType">
+                        <option value="petrol">Petrol</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="electric">Electric Vehicle</option>
+                    </select>
+                    <input type="number" id="vehicleDistance" placeholder="Enter distance (km)">
+            
+                    <!-- Question 2 -->
+                    <label>How many kilometers have you traveled by public transport?</label>
+                    <select id="publicTransport">
+                        <option value="bus">Bus</option>
+                        <option value="metro">Metro</option>
+                        <option value="train">Train</option>
+                    </select>
+                    <input type="number" id="publicDistance" placeholder="Enter distance (km)">
+            
+                    <!-- Question 3 -->
+                    <label>How far have you traveled by flight?</label>
+                    <select id="flightType">
+                        <option value="short">Short Haul (Less than 4 hrs)</option>
+                        <option value="long">Long Haul (More than 4 hrs)</option>
+                    </select>
+                    <input type="number" id="flightDistance" placeholder="Enter distance (km)">
+            
+                    <button class="finalbuttons" onclick="flipCard('card-two')">Next</button>
                 </div>
                 <div id="card-two" class="flip-card-hidden">
-                    <img src="" alt="">
-                    <button class="finalbuttons">Next</button>
+                    <div class="card-content">
+                        <img src="" alt="Energy Consumption Image">
+                        <label for="electricity">How many kWh of electricity you used?</label>
+                        <input type="number" id="electricity" placeholder="Enter kWh">
+                        
+                        <label for="lpg">How many kg of LPG you used?</label>
+                        <input type="number" id="lpg" placeholder="Enter kg">
+                        
+                        <label for="natural-gas">How many metric cubic natural gas you used?</label>
+                        <input type="number" id="natural-gas" placeholder="Enter m³">
+            
+                        <button class="finalbuttons" onclick="flipCard('card-three')">Next</button>
+                    </div>
                 </div>
                 <div id="card-three" class="flip-card-hidden">
                     <img src="" alt="">

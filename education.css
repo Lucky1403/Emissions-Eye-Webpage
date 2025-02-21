@@ -8,9 +8,11 @@
     height: 6.9rem;
     font-size: 2.5rem;
     font-family: "Merriweather";
+    display: flex;
 }
 
 h1{
+    padding-left: 112%;
     padding-top: 1rem;
 }
 
@@ -71,6 +73,53 @@ h1{
 }
 
 .rows{
-    background-color: blue;
     display: flex;
-} 
+    width: 79vw;
+    height: 26vh;
+    margin-top: 0.8%;
+}
+
+.elements{
+    background-color: white;
+    width: 23%;
+    height: auto;
+    padding: 0 0.5rem 0 0.5rem;
+    border: 2px solid black;
+    border-radius: 2px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.elements img{
+    width: 70%;
+    height: 50%;
+    object-fit: contain;
+}
+
+#element11{
+    margin-left: 0.5%;
+}
+
+#element21{
+    margin-left: 0.5%;
+}
+
+#element31{
+    margin-left: 0.5%;
+}
+
+.elements:hover {
+    transform: scale(1.05);
+}
+
+.elements p{
+    color: black; /* Change to a visible color */
+    font-size: 14px; /* Adjust size if too small */
+    font-weight: bold; /* Make it stand out */
+    text-align: center; /* Center align */
+    margin-top: 5px; /* Add spacing from the image */
+    overflow: hidden; 
+}

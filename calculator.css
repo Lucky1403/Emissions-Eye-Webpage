@@ -8,9 +8,11 @@
     height: 6.9rem;
     font-size: 2.5rem;
     font-family: "Merriweather";
+    display: flex;
 }
 
-h1{
+h1 {
+    padding-left: 112%;
     padding-top: 1rem;
 }
 
@@ -73,8 +75,8 @@ h1{
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card-main {
-    margin-top: 7rem;
-    margin-left: 26.9rem;
+    margin-top: 2rem;
+    margin-left: 23.8rem;
     background-color: transparent;
     width: 22rem;
     height: 25rem;
@@ -104,7 +106,6 @@ button{
     width: 40%;
     color: white;
     border: 1px solid white;
-
 }
 
 button:hover{
@@ -115,22 +116,27 @@ button:hover{
 
 #flip-card-child{
     display: flex;
+    align-items: center;
     justify-content: center;
     align-items: center;
     gap: 1%;
     position: relative;
     z-index: 1;
-    margin-top: 8%;
+    margin-top: 3%;
+}
+
+#card-one{
+    flex-direction: column;
 }
 
 .flip-card-hidden{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #bbb;
+    background-color: rgba(220, 218, 222, 0.7);
     margin-left: 1%;
     width: 18.45rem;
-    height: 28rem;
+    height: 35rem;
     border-radius: 10px;
     position: relative;
     z-index: 1;
@@ -143,4 +149,123 @@ button:hover{
 
 .finalbuttons{
     font-size: 1.5rem;
+}
+
+/* Style the labels */
+.flip-card-hidden label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+/* Style the dropdown menus */
+.flip-card-hidden select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.flip-card-hidden select:hover {
+    border-color: dodgerblue;
+}
+
+.flip-card-hidden select:focus {
+    border-color: dodgerblue;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
+/* Style the input fields */
+.flip-card-hidden input {
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.flip-card-hidden input:hover {
+    border-color: dodgerblue;
+}
+
+.flip-card-hidden input:focus {
+    border-color: dodgerblue;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
+/* Style the buttons */
+.finalbuttons {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 180%;
+}
+
+/* Initially hide buttons for the last three cards */
+#card-two .finalbuttons,
+#card-three .finalbuttons,
+#card-four .finalbuttons {
+    display: none;
+}
+
+/* When the card is flipped, show the button */
+.flipped #card-two .finalbuttons,
+.flipped #card-three .finalbuttons,
+.flipped #card-four .finalbuttons {
+    display: block;
+}
+
+/* Ensuring the first card's button is always visible */
+#card-one .finalbuttons {
+    display: block;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Styling for labels */
+.card-content label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Styling for input fields */
+.card-content input {
+    width: 80%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Hide buttons initially (only show after flipping) */
+#card-two .finalbuttons {
+    display: none;
+}
+
+/* Show button when flipped */
+.flipped #card-two .finalbuttons {
+    display: block;
 }

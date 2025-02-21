@@ -16,3 +16,28 @@ function flipCard() {
         card.style.display = "flex"; // Make them visible
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    let currentCardIndex = 0;
+    const cards = document.querySelectorAll(".flip-card-hidden");
+    const nextButtons = document.querySelectorAll(".finalbuttons");
+
+    // Function to flip the next card
+    function flipNextCard() {
+        if (currentCardIndex < cards.length - 1) {
+            cards[currentCardIndex].classList.add("flipped"); // Mark as flipped
+            currentCardIndex++;
+            cards[currentCardIndex].style.display = "block"; // Show next card
+        }
+    }
+
+    // Attach event listeners to buttons
+    nextButtons.forEach((button, index) => {
+        button.addEventListener("click", function () {
+            flipNextCard();
+        });
+    });
+});
+
+
+
