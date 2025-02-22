@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
     <script src="https://kit.fontawesome.com/d437d2e5a9.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="calculator.css">
 </head>
+
 <body>
     <section class="header">
         <div class="navbar">
@@ -49,69 +53,134 @@
             </div>
         </div>
         <div id="rightpart">
-            <div class="flip-card-main" >
-                  <img src="Carbon Footprint.png" alt="">
-                  <button onclick="flipCard()">Start</button>
+            <div class="flip-card-main">
+                <img src="Carbon Footprint.png" alt="">
+                <button onclick="flipCard()">Start</button>
             </div>
-            <div id="flip-card-child" class="hidden">
-                <div id="card-one" class="flip-card-hidden active">
-                    <h2>How do you travel?</h2>
-                    
-                    <!-- Question 1 -->
-                    <label>How many kilometers have you driven?</label>
-                    <select id="vehicleType">
-                        <option value="petrol">Petrol</option>
-                        <option value="diesel">Diesel</option>
-                        <option value="electric">Electric Vehicle</option>
-                    </select>
-                    <input type="number" id="vehicleDistance" placeholder="Enter distance (km)">
-            
-                    <!-- Question 2 -->
-                    <label>How many kilometers have you traveled by public transport?</label>
-                    <select id="publicTransport">
-                        <option value="bus">Bus</option>
-                        <option value="metro">Metro</option>
-                        <option value="train">Train</option>
-                    </select>
-                    <input type="number" id="publicDistance" placeholder="Enter distance (km)">
-            
-                    <!-- Question 3 -->
-                    <label>How far have you traveled by flight?</label>
-                    <select id="flightType">
-                        <option value="short">Short Haul (Less than 4 hrs)</option>
-                        <option value="long">Long Haul (More than 4 hrs)</option>
-                    </select>
-                    <input type="number" id="flightDistance" placeholder="Enter distance (km)">
-            
-                    <button class="finalbuttons" onclick="flipCard('card-two')">Next</button>
-                </div>
-                <div id="card-two" class="flip-card-hidden">
-                    <div class="card-content">
-                        <img src="" alt="Energy Consumption Image">
-                        <label for="electricity">How many kWh of electricity you used?</label>
-                        <input type="number" id="electricity" placeholder="Enter kWh">
-                        
-                        <label for="lpg">How many kg of LPG you used?</label>
-                        <input type="number" id="lpg" placeholder="Enter kg">
-                        
-                        <label for="natural-gas">How many metric cubic natural gas you used?</label>
-                        <input type="number" id="natural-gas" placeholder="Enter m³">
-            
-                        <button class="finalbuttons" onclick="flipCard('card-three')">Next</button>
+            <!DOCTYPE html>
+            <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Carbon Footprint Calculator</title>
+                <link rel="stylesheet" href="styles.css">
+            </head>
+
+            <body>
+
+                <div id="flip-card-child">
+                    <!-- Card 1 (No Flip) -->
+                    <div id="card-one" class="flip-card-hidden">
+                        <div class="card-content">
+                            <h2>Travel Information</h2>
+                            <label>How many kilometers did you drive?</label>
+                            <select id="vehicle-type">
+                                <option value="petrol">Petrol</option>
+                                <option value="diesel">Diesel</option>
+                                <option value="ev">Electric Vehicle</option>
+                            </select>
+                            <input type="number" id="vehicle-distance" placeholder="Enter distance in km">
+
+                            <label>How many kilometers did you travel using public transport?</label>
+                            <select id="public-transport">
+                                <option value="bus">Bus</option>
+                                <option value="metro">Metro</option>
+                                <option value="train">Train</option>
+                            </select>
+                            <input type="number" id="public-distance" placeholder="Enter distance in km">
+
+                            <label>How much distance did you cover by flight?</label>
+                            <select id="flight-type">
+                                <option value="short-haul">Short Haul (&lt; 4 hrs)</option>
+                                <option value="long-haul">Long Haul (&gt; 4 hrs)</option>
+                            </select>
+                            <input type="number" id="flight-distance" placeholder="Enter distance in km">
+
+                            <button class="finalbuttons" onclick="showNextCard('card-two')">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div id="card-two" class="flip-card-hidden">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="electricity.jpeg" alt="Energy Consumption">
+                            </div>
+                            <div class="flip-card-back">
+                                <h2>Energy Consumption</h2>
+                                <label>How many kWh of electricity did you use?</label>
+                                <input type="number" id="electricity" placeholder="Enter kWh">
+
+                                <label>How many kg of LPG did you use?</label>
+                                <input type="number" id="lpg" placeholder="Enter kg">
+
+                                <label>How many cubic meters of natural gas did you use?</label>
+                                <input type="number" id="natural-gas" placeholder="Enter m³">
+
+                                <button class="finalbuttons" onclick="showNextCard('card-three')">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div id="card-three" class="flip-card-hidden">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="" alt="Consumption & Waste">
+                            </div>
+                            <div class="flip-card-back">
+                                <h2>Consumption & Waste</h2>
+                                <label>How much new clothes did you purchase?</label>
+                                <input type="number" id="clothes" placeholder="Enter quantity">
+
+                                <label>How many electronic items did you buy?</label>
+                                <select id="electronic-type">
+                                    <option value="laptop">Laptop</option>
+                                    <option value="mobile">Mobile</option>
+                                </select>
+                                <input type="number" id="electronics" placeholder="Enter quantity">
+
+                                <label>How much plastic waste did you generate (kg)?</label>
+                                <input type="number" id="plastic-waste" placeholder="Enter kg">
+
+                                <label>How much food waste did you generate (kg)?</label>
+                                <input type="number" id="food-waste" placeholder="Enter kg">
+
+                                <button class="finalbuttons" onclick="showNextCard('card-four')">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 (Final) -->
+                    <div id="card-four" class="flip-card-hidden">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="renewable energy.jpeg" alt="Sustainability Efforts">
+                            </div>
+                            <div class="flip-card-back">
+                                <h2>Sustainability Efforts</h2>
+                                <label>How many trees have you planted?</label>
+                                <input type="number" id="trees-planted" placeholder="Enter quantity">
+
+                                <label>How much kWh renewable energy have you generated?</label>
+                                <input type="number" id="renewable-energy" placeholder="Enter kWh">
+
+                                <button class="finalbuttons" onclick="submitData()">Submit</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="card-three" class="flip-card-hidden">
-                    <img src="" alt="">
-                    <button class="finalbuttons">Next</button>
-                </div>
-                <div id="card-four" class="flip-card-hidden">
-                    <img src="" alt="">
-                    <button class="finalbuttons">Submit</button>
-                </div>    
-          </div>
+
+                <script src="script.js"></script>
+            </body>
+
+            </html>
+
         </div>
     </section>
 
     <script src="calculator.js"></script>
 </body>
+
 </html>

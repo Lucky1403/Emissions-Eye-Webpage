@@ -17,27 +17,26 @@ function flipCard() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    let currentCardIndex = 0;
-    const cards = document.querySelectorAll(".flip-card-hidden");
-    const nextButtons = document.querySelectorAll(".finalbuttons");
-
-    // Function to flip the next card
-    function flipNextCard() {
-        if (currentCardIndex < cards.length - 1) {
-            cards[currentCardIndex].classList.add("flipped"); // Mark as flipped
-            currentCardIndex++;
-            cards[currentCardIndex].style.display = "block"; // Show next card
-        }
+function showNextCard(nextCardId) {
+    let currentCard = document.querySelector(".flip-card-hidden:not([style*='display: none'])");
+    if (currentCard) {
+        currentCard.style.display = "none";
     }
 
-    // Attach event listeners to buttons
-    nextButtons.forEach((button, index) => {
-        button.addEventListener("click", function () {
-            flipNextCard();
-        });
-    });
-});
+    let nextCard = document.getElementById(nextCardId);
+    if (nextCard) {
+        nextCard.style.display = "block";
+        let innerCard = nextCard.querySelector(".flip-card-inner");
+        if (innerCard) {
+            innerCard.style.transform = "rotateY(180deg)";
+        }
+    }
+}
+
+function submitData() {
+    alert("Your data has been submitted!");
+}
+
 
 
 
