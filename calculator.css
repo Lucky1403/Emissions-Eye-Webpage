@@ -79,7 +79,7 @@ h1 {
     margin-left: 23.8rem;
     background-color: transparent;
     width: 22rem;
-    height: 25rem;
+    height: 28rem;
     border: 1px solid #f1f1f1;
     border-radius: 10px;
     position: relative;
@@ -102,7 +102,7 @@ button{
     height: auto;
     font-family: "Merriweather";
     font-size: 1.5rem;
-    margin-top: 22.5rem;
+    margin-top: 24.5rem;
     width: 40%;
     color: white;
     border: 1px solid white;
@@ -114,158 +114,122 @@ button:hover{
     transition: 0.5s ease-in-out;
 }
 
-#flip-card-child{
+#flip-card-child {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-    gap: 1%;
-    position: relative;
-    z-index: 1;
-    margin-top: 3%;
-}
-
-#card-one{
     flex-direction: column;
 }
 
-.flip-card-hidden{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(220, 218, 222, 0.7);
-    margin-left: 1%;
-    width: 18.45rem;
-    height: 35rem;
+.flip-card-hidden {
+    width: 19rem;
+    height: 32rem;
+    background-color: white;
     border-radius: 10px;
+    text-align: center;
+    padding: 1.5%;
     position: relative;
-    z-index: 1;
     display: none;
 }
 
-.hidden{
-    display: none;
-}
-
-.finalbuttons{
-    font-size: 1.5rem;
-}
-
-Style the labels
-.flip-card-hidden label {
-    display: block;
-    font-weight: bold;
-    margin: 10px 0 5px;
-    color: #333;
-    font-size: 1.2rem;
-}
-
-/* Style the dropdown menus */
-.flip-card-hidden select {
+.flip-card-inner {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.flip-card-hidden select:hover {
-    border-color: dodgerblue;
-}
-
-.flip-card-hidden select:focus {
-    border-color: dodgerblue;
-    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
-}
-
-/* Style the input fields */
-.flip-card-hidden input {
-    width: calc(100% - 20px); /* Adjust for padding */
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.flip-card-hidden input:hover {
-    border-color: dodgerblue;
-}
-
-.flip-card-hidden input:focus {
-    border-color: dodgerblue;
-    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
-}
-
-/* Style the buttons */
-.finalbuttons {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: dodgerblue;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 180%;
-}
-
-/* Initially hide buttons for the last three cards */
-#card-two .finalbuttons,
-#card-three .finalbuttons,
-#card-four .finalbuttons {
-    display: none;
-}
-
-/* When the card is flipped, show the button */
-.flipped #card-two .finalbuttons,
-.flipped #card-three .finalbuttons,
-.flipped #card-four .finalbuttons {
-    display: block;
-}
-
-/* Ensuring the first card's button is always visible */
-#card-one .finalbuttons {
-    display: block;
-}
-
-.card-content {
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
+    justify-content: space-between;
 }
 
-/* Styling for labels */
-.card-content label {
-    font-size: 1rem;
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.flip-card-front img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.flip-card-back {
+    background-color: #E6E6EA;
+    transform: rotateY(180deg);
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+label {
     font-weight: bold;
+    display: block;
     margin-top: 10px;
 }
 
-/* Styling for input fields */
-.card-content input {
-    width: 80%;
+select, input {
+    width: 100%;
     padding: 8px;
-    margin: 5px 0;
+    margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1rem;
 }
 
-/* Hide buttons initially (only show after flipping) */
-#card-two .finalbuttons {
+button.finalbuttons {
+    margin-top: 20%;
+    padding: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: -25%;
+    align-self: center; /* Center the button */
+    margin-top: auto;
+}
+
+button.finalbuttons:hover {
+    background-color: #0056b3;
+}
+
+.flip-card-container{
+    display: flex;
+}
+
+.flip-card-back button {
+    width: 90%; /* Ensure the button fits inside */
+    max-width: 180px; /* Prevent it from being too wide */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-self: center; /* Center the button */
+    margin-top: auto;
+}
+
+#card-one{
+    background-color: #E6E6EA;
+    height: 30rem;
+    margin: 1.4%;
+}
+
+.hidden-card {
     display: none;
 }
 
-/* Show button when flipped */
-.flipped #card-two .finalbuttons {
-    display: block;
+button#firstbutton.finalbuttons{
+    margin-top: 25%;
 }
+
+button#secondbutton/
