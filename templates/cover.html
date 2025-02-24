@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/d437d2e5a9.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="cover.css">
+    <link rel="stylesheet" href="/static/css/cover.css">
 </head>
 <body>
     <section class="header">
         <div class="navbar">
-            <img src="website logo.png" alt="Emission's Eye logo" width="auto" height="80%">
+            <img src="/static/images/website logo.png" alt="Emission's Eye logo" width="auto" height="80%">
             <center>
                 <h1>EmissionsEye</h1>
             </center>
@@ -22,12 +22,12 @@
     <section class="wrapper">
         <div class="form signup">
           <header>Signup</header>
-          <form action="#">
-            <input type="text" placeholder="Full name" required />
-            <input type="text" placeholder="Email address" required />
-            <input type="password" placeholder="Password" required />
+          <form action="/signup" method="POST">
+            <input type="text" name="name" placeholder="Full name" required />
+            <input type="text" name="email" placeholder="Email address" required />
+            <input type="password" name="password" placeholder="Password" required />
             <div class="checkbox">
-              <input type="checkbox" id="signupCheck" />
+              <input type="checkbox" id="signupCheck" required />
               <label for="signupCheck">I accept all terms & conditions</label>
             </div>
             <input type="submit" value="Signup" />
@@ -35,9 +35,9 @@
         </div>
         <div class="form login">
           <header>Login</header>
-          <form action="#">
-            <input type="text" placeholder="Email address" required />
-            <input type="password" placeholder="Password" required />
+          <form action="/login" method="POST">
+            <input type="text" name="email" placeholder="Email address" required />
+            <input type="password" name="password" placeholder="Password" required />
             <input type="submit" value="Login" />
           </form>
         </div>
@@ -54,7 +54,5 @@
           });
         </script>
       </section>
-    
-
 </body>
 </html>

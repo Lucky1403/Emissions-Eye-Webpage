@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/d437d2e5a9.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="education.css">
+    <link rel="stylesheet" href="/static/css/education.css">
 </head>
 <body>
     <section class="header">
         <div class="navbar">
-            <img src="website logo.png" alt="Emission's Eye logo" width="auto" height="80%">
+            <img src="/static/images/website logo.png" alt="Emission's Eye logo" width="auto" height="80%">
             <center>
                 <h1>EmissionsEye</h1>
             </center>
@@ -24,27 +24,27 @@
             <div class="menuoptions">
                 <div id="one">
                     <i class="fa-solid fa-house"></i>
-                    <a href="index.html" class="links">Dashboard</a>
+                    <a href="{{ url_for('dashboard') }}" class="links">Dashboard</a>
                 </div>
                 <div id="two">
                     <i class="fa-solid fa-calculator"></i>
-                    <a href="calculator.html" class="links">Emission Calculator</a>
+                    <a href="{{ url_for('calculator') }}" class="links">Emission Calculator</a>
                 </div>
                 <div id="three">
                     <i class="fa-solid fa-clock-rotate-left"></i>
-                    <a href="history.html" class="links">History</a>
+                    <a href="{{ url_for('history') }}" class="links">History</a>
                 </div>
                 <div id="four">
                     <i class="fa-solid fa-circle-info"></i>
-                    <a href="education.html" class="links">Education</a>
+                    <a href="{{ url_for('education') }}" class="links">Education</a>
                 </div>
                 <div id="five">
                     <i class="fa-solid fa-user"></i>
-                    <a href="profile.html" class="links">Profile</a>
+                    <a href="{{ url_for('profile') }}" class="links">Profile</a>
                 </div>
                 <div id="six">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    <a href="cover.html" class="links">Logout</a>
+                    <a href="{{ url_for('logout') }}" class="links">Logout</a>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
         </div>
     </section>
 
-    <script src="education.js"></script>
+    <script src="/static/js/education.js"></script>
 
 </body>
 </html>

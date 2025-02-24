@@ -78,8 +78,8 @@ h1 {
     margin-top: 2rem;
     margin-left: 23.8rem;
     background-color: transparent;
-    width: 22rem;
-    height: 28rem;
+    width: 26rem;
+    height: 30rem;
     border: 1px solid #f1f1f1;
     border-radius: 10px;
     position: relative;
@@ -102,7 +102,7 @@ button{
     height: auto;
     font-family: "Merriweather";
     font-size: 1.5rem;
-    margin-top: 24.5rem;
+    margin-top: 26.7rem;
     width: 40%;
     color: white;
     border: 1px solid white;
@@ -207,8 +207,8 @@ button.finalbuttons:hover {
 
 .flip-card-back button {
     width: 90%; /* Ensure the button fits inside */
-    max-width: 180px; /* Prevent it from being too wide */
-    padding: 10px;
+    max-width: 130px; /* Prevent it from being too wide */
+    padding: 5px;
     margin-top: 10px;
     border-radius: 5px;
     white-space: nowrap; /* Prevents text from wrapping */
@@ -216,6 +216,8 @@ button.finalbuttons:hover {
     text-overflow: ellipsis;
     align-self: center; /* Center the button */
     margin-top: auto;
+    position: absolute;
+    bottom: 0;
 }
 
 #card-one{
@@ -232,4 +234,6 @@ button#firstbutton.finalbuttons{
     margin-top: 25%;
 }
 
-button#secondbutton/
+button#secondbutton.finalbuttons{
+    margin-top: 20%;
+}

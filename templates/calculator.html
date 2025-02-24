@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d437d2e5a9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/calculator.css">
+</head>
+
+<body>
+    <section class="header">
+        <div class="navbar">
+            <img src="/static/images/website logo.png" alt="Emission's Eye logo" width="auto" height="80%">
+            <center>
+                <h1>EmissionsEye</h1>
+            </center>
+        </div>
+    </section>
+    <section class="mainbody">
+        <div id="leftpart">
+            <div class="menuoptions">
+                <div id="one">
+                    <i class="fa-solid fa-house"></i>
+                    <a href="{{ url_for('dashboard') }}" class="links">Dashboard</a>
+                </div>
+                <div id="two">
+                    <i class="fa-solid fa-calculator"></i>
+                    <a href="{{ url_for('calculator') }}" class="links">Emission Calculator</a>
+                </div>
+                <div id="three">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <a href="{{ url_for('history') }}" class="links">History</a>
+                </div>
+                <div id="four">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <a href="{{ url_for('education') }}" class="links">Education</a>
+                </div>
+                <div id="five">
+                    <i class="fa-solid fa-user"></i>
+                    <a href="{{ url_for('profile') }}" class="links">Profile</a>
+                </div>
+                <div id="six">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <a href="{{ url_for('logout') }}" class="links">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div id="rightpart">
+            <div class="flip-card-main" id="parent-card">
+                <img src="/static/images/Carbon Footprint.png" alt="image showing carbon Footprint">
+                <button onclick="flipCard()">Start</button>
+            </div>
+
+            <div id="flip-card-child">
+                <!-- Card 1 (No Flip) -->
+                <form id="emission-form" action="/calculator" method="POST">
+                    <div class="flip-card-container">
+                        <div id="card-one" class="flip-card-hidden">
+                            <div class="card-content">
+                                <h2>Travel Information</h2>
+                                <label>How many kilometers did you drive?</label>
+                                <select name="fuel_type" id="vehicle-type">
+                                    <option value="petrol">Petrol</option>
+                                    <option value="diesel">Diesel</option>
+                                    <option value="ev">Electric Vehicle</option>
+                                </select>
+                                <input type="number" name="car_distance" id="vehicle-distance"
+                                    placeholder="Enter distance in km">
+
+                                <label>How many kilometers did you travel using public transport?</label>
+                                <select name="transport_type" id="public-transport">
+                                    <option value="bus">Bus</option>
+                                    <option value="metro">Metro</option>
+                                    <option value="train">Train</option>
+                                </select>
+                                <input type="number" name="public_distance" id="public-distance"
+                                    placeholder="Enter distance in km">
+
+                                <label>How much distance did you cover by flight?</label>
+                                <select name="flight_type" id="flight-type">
+                                    <option value="short-haul">Short Haul (&lt; 4 hrs)</option>
+                                    <option value="long-haul">Long Haul (&gt; 4 hrs)</option>
+                                </select>
+                                <input type="number" name="flight_distance" id="flight-distance"
+                                    placeholder="Enter distance in km">
+
+                                <button type="button" class="finalbuttons" onclick="showNextCard('card-two')"
+                                    id="firstbutton">Next</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div id="card-two" class="flip-card-hidden">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="/static/images/electricity.jpeg" alt="Energy Consumption">
+                                </div>
+                                <div class="flip-card-back">
+                                    <h2>Energy Consumption</h2>
+                                    <label>How many kWh of electricity did you use?</label>
+                                    <input type="number" name="electricity" id="electricity" placeholder="Enter kWh">
+
+                                    <label>How many kg of LPG did you use?</label>
+                                    <input type="number" name="lpg" id="lpg" placeholder="Enter kg">
+
+                                    <label>How many cubic meters of natural gas did you use?</label>
+                                    <input type="number" name="natural_gas" id="natural-gas" placeholder="Enter m³">
+
+                                    <button type="button" class="finalbuttons"
+                                        onclick="showNextCard('card-three')">Next</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div id="card-three" class="flip-card-hidden">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="/static/images/consumption&waste.jpg" alt="Consumption & Waste">
+                                </div>
+                                <div class="flip-card-back">
+                                    <h2>Consumption & Waste</h2>
+                                    <label>How much new clothes did you purchase?</label>
+                                    <input type="number" name="clothes" id="clothes" placeholder="Enter quantity">
+
+                                    <label>How many electronic items did you buy?</label>
+                                    <input type="number" name="electronics" id="electronics"
+                                        placeholder="Enter quantity">
+
+                                    <label>How much plastic waste did you generate (kg)?</label>
+                                    <input type="number" name="plastic_waste" id="plastic-waste" placeholder="Enter kg">
+
+                                    <label>How much food waste did you generate (kg)?</label>
+                                    <input type="number" name="food_waste" id="food-waste" placeholder="Enter kg">
+
+                                    <button type="button" class="finalbuttons"
+                                        onclick="showNextCard('card-four')">Next</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 (Final) -->
+                        <div id="card-four" class="flip-card-hidden">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="/static/images/renewable energy.jpeg" alt="Sustainability Efforts">
+                                </div>
+                                <div class="flip-card-back">
+                                    <h2>Sustainability Efforts</h2>
+                                    <label>How many trees have you planted?</label>
+                                    <input type="number" name="trees_planted" id="trees-planted"
+                                        placeholder="Enter quantity">
+
+                                    <label>How much kWh renewable energy have you generated?</label>
+                                    <input type="number" name="renewable_energy" id="renewable-energy"
+                                        placeholder="Enter kWh">
+
+                                    <button type="submit" class="finalbuttons">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+
+</body>
+
+</html>
