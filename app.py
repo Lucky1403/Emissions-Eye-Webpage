@@ -21,30 +21,24 @@ def get_db_connection():
         print(f"Error connecting to database: {e}")
         return None
 
-# Try-Except to Handle Connection Errors
-mycon = None
-sqr = None
-try:
-    mycon = get_db_connection()
-    if mycon:
-        sqr = mycon.cursor()
-except Exception as err:
-    print(f"Database Connection Error: {err}")
-
 # Function to Create Profile Table
 def create_tables():
-    if not mycon: return
-    sqr.execute("""CREATE TABLE IF NOT EXISTS profile (
-        Name VARCHAR(30), 
-        Email VARCHAR(50) PRIMARY KEY, 
-        Password VARCHAR(50),
-        Gender VARCHAR(10),
-        Mobile VARCHAR(20),
-        Country VARCHAR(50)
-    )""")
-    
-    # Safely alter existing table to add columns if they don't exist
+    conn = get_db_connection()
+    if not conn:
+        print("Could not connect to database for create_tables")
+        return
     try:
+        sqr = conn.cursor()
+        sqr.execute("""CREATE TABLE IF NOT EXISTS profile (
+            Name VARCHAR(30), 
+            Email VARCHAR(50) PRIMARY KEY, 
+            Password VARCHAR(50),
+            Gender VARCHAR(10),
+            Mobile VARCHAR(20),
+            Country VARCHAR(50)
+        )""")
+        
+        # Safely alter existing table to add columns if they don't exist
         sqr.execute("SELECT column_name FROM information_schema.columns WHERE table_name='profile'")
         columns = [info[0] for info in sqr.fetchall()]
         
@@ -54,43 +48,49 @@ def create_tables():
             sqr.execute("ALTER TABLE profile ADD COLUMN Mobile VARCHAR(20)")
         if 'country' not in columns and 'Country' not in columns:
             sqr.execute("ALTER TABLE profile ADD COLUMN Country VARCHAR(50)")
+            
+        conn.commit()
     except Exception as err:
         print(f"Error updating profile schema: {err}")
-        
-    mycon.commit()
+    finally:
+        conn.close()
 
-if mycon:
-    create_tables()
+# Try to initialize tables on startup
+create_tables()
 
 # Function to Create User-Specific History Table
 def create_user_table(email):
-    if not mycon: return
-    table_name = email.replace("@", "_").replace(".", "_")
+    conn = get_db_connection()
+    if not conn: return
+    try:
+        sqr = conn.cursor()
+        table_name = email.replace("@", "_").replace(".", "_")
 
-    sqr.execute("SELECT table_name FROM information_schema.tables WHERE table_name=%s", (table_name,))
-    result = sqr.fetchone()
+        sqr.execute("SELECT table_name FROM information_schema.tables WHERE table_name=%s", (table_name,))
+        result = sqr.fetchone()
 
-    if not result:  # Only create if the table doesn't exist
-        sqr.execute(f'DROP TABLE IF EXISTS "{table_name}"')  
-        sqr.execute(f"""CREATE TABLE "{table_name}" (
-            ID SERIAL PRIMARY KEY,
-            Date_Time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            Car FLOAT, PublicTransport FLOAT, Flight FLOAT,
-            Electricity FLOAT, LPG FLOAT, NaturalGas FLOAT, Clothing FLOAT, Electronics FLOAT, PlasticWaste FLOAT,
-            FoodWaste FLOAT, TreesPlanted FLOAT, RenewableEnergy FLOAT,
-            Total FLOAT
-        )""")
-        mycon.commit()
-    else:
-        # Check if NaturalGas column exists for existing users
-        try:
+        if not result:  # Only create if the table doesn't exist
+            sqr.execute(f'DROP TABLE IF EXISTS "{table_name}"')  
+            sqr.execute(f"""CREATE TABLE "{table_name}" (
+                ID SERIAL PRIMARY KEY,
+                Date_Time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                Car FLOAT, PublicTransport FLOAT, Flight FLOAT,
+                Electricity FLOAT, LPG FLOAT, NaturalGas FLOAT, Clothing FLOAT, Electronics FLOAT, PlasticWaste FLOAT,
+                FoodWaste FLOAT, TreesPlanted FLOAT, RenewableEnergy FLOAT,
+                Total FLOAT
+            )""")
+            conn.commit()
+        else:
+            # Check if NaturalGas column exists for existing users
             sqr.execute("SELECT column_name FROM information_schema.columns WHERE table_name=%s", (table_name,))
             columns = [info[0] for info in sqr.fetchall()]
             if 'naturalgas' not in columns and 'NaturalGas' not in columns:
                 sqr.execute(f'ALTER TABLE "{table_name}" ADD COLUMN NaturalGas FLOAT DEFAULT 0')
-                mycon.commit()
-        except Exception as err:
-            print(f"Error checking/adding NaturalGas column: {err}")
+                conn.commit()
+    except Exception as err:
+        print(f"Error checking/adding NaturalGas column: {err}")
+    finally:
+        conn.close()
 
 # Default Home Route (Redirects to Dashboard)
 @app.route("/")
@@ -133,14 +133,25 @@ def login():
     email = request.form["email"]
     password = request.form["password"]
 
-    sqr.execute("SELECT Email FROM profile WHERE Email=%s AND Password=%s", (email, password))
-    user = sqr.fetchone()
+    conn = get_db_connection()
+    if not conn:
+        return "Internal Server Error: Database Connection Failed", 500
+    try:
+        sqr = conn.cursor()
+        sqr.execute("SELECT Email FROM profile WHERE Email=%s AND Password=%s", (email, password))
+        user = sqr.fetchone()
+        
+        if user:
+            session["email"] = email  # Store user session
+            return redirect(url_for("dashboard"))  # Redirect to index.html (Dashboard)
+        else:
+            return redirect(url_for("cover", error="invalid_login"))
+    except Exception as e:
+        print(e)
+        return "Internal Server Error", 500
+    finally:
+        conn.close()
 
-    if user:
-        session["email"] = email  # Store user session
-        return redirect(url_for("dashboard"))  # Redirect to index.html (Dashboard)
-    else:
-        return redirect(url_for("cover", error="invalid_login"))
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -152,26 +163,31 @@ def signup():
         mobile = request.form.get("mobile", "")
         country = request.form.get("country", "")
 
-        print(f"Received signup data: name={name}, email={email}, gender={gender}")  # Debugging line
+        conn = get_db_connection()
+        if not conn:
+            return "Internal Server Error: Database Connection Failed", 500
+        
+        try:
+            sqr = conn.cursor()
+            # Check if the user already exists
+            sqr.execute("SELECT Email FROM profile WHERE Email=%s", (email,))
+            existing_user = sqr.fetchone()
 
-        # Check if the user already exists
-        sqr.execute("SELECT Email FROM profile WHERE Email=%s", (email,))
-        existing_user = sqr.fetchone()
+            if existing_user:
+                return redirect(url_for("cover", error="already_registered"))
 
-        if existing_user:
-            return redirect(url_for("cover", error="already_registered"))
+            # Insert the new user into the profile table
+            sqr.execute("INSERT INTO profile (Name, Email, Password, Gender, Mobile, Country) VALUES (%s, %s, %s, %s, %s, %s)", 
+                        (name, email, password, gender, mobile, country))
+            conn.commit()
+            
+            create_user_table(email)  # Create a personal emissions table for the user
 
-        # Insert the new user into the profile table
-        sqr.execute("INSERT INTO profile (Name, Email, Password, Gender, Mobile, Country) VALUES (%s, %s, %s, %s, %s, %s)", 
-                    (name, email, password, gender, mobile, country))
-        mycon.commit()
-
-        create_user_table(email)  # Create a personal emissions table for the user
-
-        session["email"] = email  # Store user session
-        print(f"User {email} registered successfully!")  # Debugging line
-
-        return redirect(url_for("dashboard"))  # Redirect to index.html after signup
+            session["email"] = email  # Store user session
+            return redirect(url_for("dashboard"))  # Redirect to index.html after signup
+            
+        finally:
+            conn.close()
 
     except Exception as e:
         print(f"General Error: {e}")  # Debugging line
@@ -185,9 +201,14 @@ def calculator():
 
     email = session["email"]
     table_name = email.replace("@", "_").replace(".", "_")  # Convert email to a safe table name
-
     days_left = 0
+    
+    conn = get_db_connection()
+    if not conn:
+        return "Internal Server Error: Database Connection Failed", 500
+        
     try:
+        sqr = conn.cursor()
         sqr.execute(f'SELECT CAST(EXTRACT(EPOCH FROM (NOW() - Date_Time)) / 86400 AS INTEGER) FROM "{table_name}" ORDER BY Date_Time DESC LIMIT 1')
         last_calc = sqr.fetchone()
         if last_calc and last_calc[0] is not None:
@@ -199,6 +220,7 @@ def calculator():
 
     if request.method == "POST":
         if days_left > 0:
+            conn.close()
             return redirect(url_for("calculator")) # Block POST if restricted
 
         # Initialize emission storage with correct length
@@ -232,25 +254,22 @@ def calculator():
 
         total_emission = round(sum(usage), 2)
 
-        # Debugging Statements
-        print("Usage values:", usage)
-        print("Total emission:", total_emission)
-        print("Number of parameters:", len(usage))
-
         # Log the full SQL query with parameters
         sql_query = f"""INSERT INTO "{table_name}" 
         (Car, PublicTransport, Flight, Electricity, LPG, NaturalGas, Clothing, Electronics, PlasticWaste, FoodWaste, TreesPlanted, RenewableEnergy, Total)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
-        print("SQL Query:", sql_query)
-        print("Parameters:", usage + [total_emission])
-
-        # Store in User's History Table
-        sqr.execute(sql_query, usage + [total_emission])
-        mycon.commit()
+        try:
+            sqr.execute(sql_query, usage + [total_emission])
+            conn.commit()
+        except Exception as e:
+            print("Error saving calculation:", e)
+        finally:
+            conn.close()
 
         return redirect(url_for("result", total=total_emission))
 
+    conn.close()
     return render_template("calculator.html", days_left=days_left)
 
 @app.route("/get_dashboard_data")
@@ -261,7 +280,12 @@ def get_dashboard_data():
     email = session["email"]
     table_name = email.replace("@", "_").replace(".", "_")
 
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database Connection Failed"}), 500
+
     try:
+        sqr = conn.cursor()
         sqr.execute(f'SELECT COUNT(*), SUM(Total) FROM "{table_name}"')
         result = sqr.fetchone()
         count = result[0] if result and result[0] is not None else 0
@@ -289,6 +313,8 @@ def get_dashboard_data():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
 
 @app.route("/get_history")
 def get_history():
@@ -297,8 +323,13 @@ def get_history():
 
     email = session["email"]
     table_name = email.replace("@", "_").replace(".", "_")
+    
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database Connection Failed"}), 500
 
     try:
+        sqr = conn.cursor()
         sqr.execute(f'SELECT COUNT(*) FROM "{table_name}"')
         count = sqr.fetchone()[0]
 
@@ -312,6 +343,8 @@ def get_history():
         return jsonify(history_data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
 
 @app.route("/get_profile")
 def get_profile():
@@ -320,7 +353,12 @@ def get_profile():
 
     email = session["email"]
     
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database Connection Failed"}), 500
+        
     try:
+        sqr = conn.cursor()
         sqr.execute("SELECT Name, Email, Gender, Mobile, Country FROM profile WHERE Email=%s", (email,))
         user = sqr.fetchone()
         if not user:
@@ -337,7 +375,7 @@ def get_profile():
             
         if user_avg == 0:
             badge = "No Calculations Yet"
-            badge_image = "/static/images/badges/copper_shield.png" # Default icon
+            badge_image = "/static/images/badges/copper_shield.png"
             badge_id = "badge-1"
         elif user_avg <= 100:
             badge = "Master Shield"
@@ -384,6 +422,8 @@ def get_profile():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
 
 # Show Emission Results
 @app.route("/result")
