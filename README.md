@@ -49,20 +49,6 @@ To run EmissionsEye locally on your machine, follow these steps:
 5. **Open in Browser:**
    Visit `http://127.0.0.1:5000` to start tracking your emissions!
 
-## ☁️ Deployment (Vercel)
-
-This project is configured for serverless deployment on [Vercel](https://vercel.com/). The `vercel.json` and `requirements.txt` files are already included in the root directory.
-
-To deploy:
-1. Push your repository to GitHub.
-2. Go to your Vercel Dashboard and click **Add New Project**.
-3. Import your GitHub repository.
-4. Vercel will automatically detect the Python configuration and build the app.
-
-> **⚠️ IMPORTANT NOTE FOR PRODUCTION:** 
-> Vercel uses ephemeral serverless functions. Because this app currently uses a local `sqlite3` database (`emissionseye.db`), **your user data will reset every time the serverless function restarts**. 
-> 
-> To make your user accounts and calculation history permanent in a production environment, you should migrate the database connection in `app.py` to a remote Postgres database (such as **Supabase**, **Neon**, or **Render**).
 
 ## 🤝 Contributing
 
