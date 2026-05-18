@@ -10,9 +10,9 @@ async function loadProfile() {
             document.getElementById('gender').value = data.gender;
             let avatarSrc = '/static/images/default avatar.png';
             if (data.gender && data.gender.toLowerCase() === 'male') {
-                avatarSrc = '/static/images/male avatar.png';
+                avatarSrc = '/static/images/male_avatar.png';
             } else if (data.gender && data.gender.toLowerCase() === 'female') {
-                avatarSrc = '/static/images/Female Avatar.png';
+                avatarSrc = '/static/images/female_avatar.png';
             }
             document.getElementById('avatar').src = avatarSrc;
             document.getElementById('mobile').value = data.mobile;
