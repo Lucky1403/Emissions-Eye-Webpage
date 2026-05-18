@@ -1,18 +1,26 @@
 async function loadHistory() {
-    const response = await fetch('/get_history');
-    const data = await response.json();
-    
-    if (!response.ok) {
-        alert(data.error);
-        return;
-    }
+    try {
+        const response = await fetch('/get_history');
+        const data = await response.json();
+        
+        const msgEl = document.getElementById('history-msg');
+        const chartEl = document.getElementById('emissionChart');
 
-    // Extract date (X-axis) and total emissions (Y-axis)
-    const labels = data.map(entry => entry.date);
-    const values = data.map(entry => entry.total);
+        if (!response.ok) {
+            msgEl.innerText = data.error;
+            chartEl.style.display = 'none';
+            return;
+        }
 
-    // Select the canvas element
-    const ctx = document.getElementById('emissionChart').getContext('2d');
+        msgEl.innerText = '';
+        chartEl.style.display = 'block';
+
+        // Extract date (X-axis) and total emissions (Y-axis)
+        const labels = data.map(entry => entry.date);
+        const values = data.map(entry => entry.total);
+
+        // Select the canvas element
+        const ctx = chartEl.getContext('2d');
 
     // Create the Chart.js line graph
     new Chart(ctx, {
@@ -21,11 +29,15 @@ async function loadHistory() {
             labels: labels, // X-axis: Dates
             datasets: [{
                 label: 'Total Carbon Emissions (kg CO2)',
-                data: values, // Y-axis: Total emissions
-                borderColor: 'blue',
-                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                data: values,
+                borderColor: '#00b09b',
+                backgroundColor: 'rgba(0, 176, 155, 0.2)',
+                borderWidth: 3,
+                pointBackgroundColor: '#96c93d',
+                pointBorderColor: '#fff',
+                pointRadius: 4,
                 fill: true,
-                tension: 0.3
+                tension: 0.4
             }]
         },
         options: {
@@ -47,6 +59,10 @@ async function loadHistory() {
             }
         }
     });
+    } catch (error) {
+        console.error("Error loading history:", error);
+        document.getElementById('history-msg').innerText = "Failed to load history.";
+    }
 }
 
 window.onload = loadHistory;

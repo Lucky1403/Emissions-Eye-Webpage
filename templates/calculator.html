@@ -53,46 +53,68 @@
             </div>
         </div>
         <div id="rightpart">
-            <div class="flip-card-main" id="parent-card">
-                <img src="/static/images/Carbon Footprint.png" alt="image showing carbon Footprint">
-                <button onclick="flipCard()">Start</button>
+            {% if days_left > 0 %}
+            <div class="start-card-container">
+                <div class="start-card" style="background: rgba(255, 50, 50, 0.1); border: 1px solid rgba(255,50,50,0.3);">
+                    <div class="start-content">
+                        <i class="fa-solid fa-lock" style="font-size: 4rem; color: #ff4d4d; margin-bottom: 20px;"></i>
+                        <h2 style="background: -webkit-linear-gradient(45deg, #ff4d4d, #f9cb28); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Calculator Locked</h2>
+                        <p>You have already calculated your emissions recently. Please wait <strong>{{ days_left }}</strong> more days before your next calculation.</p>
+                        <a href="{{ url_for('dashboard') }}" style="display: inline-block; margin-top: 20px; background: linear-gradient(45deg, #ff4d4d, #f9cb28); color: white; padding: 15px 35px; border-radius: 30px; text-decoration: none; font-size: 1.3rem; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease;">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="start-card-container" id="parent-card">
+                <div class="start-card">
+                    <div class="start-content">
+                        <h2>Calculate Your Impact</h2>
+                        <p>Discover your carbon footprint and take the first step towards a greener future.</p>
+                        <button onclick="flipCard()">Start Calculator</button>
+                    </div>
+                </div>
             </div>
 
             <div id="flip-card-child">
-                <!-- Card 1 (No Flip) -->
                 <form id="emission-form" action="/calculator" method="POST">
                     <div class="flip-card-container">
+                        <!-- Card 1 -->
                         <div id="card-one" class="flip-card-hidden">
-                            <div class="card-content">
-                                <h2>Travel Information</h2>
-                                <label>How many kilometers did you drive?</label>
-                                <select name="fuel_type" id="vehicle-type">
-                                    <option value="petrol">Petrol</option>
-                                    <option value="diesel">Diesel</option>
-                                    <option value="ev">Electric Vehicle</option>
-                                </select>
-                                <input type="number" name="car_distance" id="vehicle-distance"
-                                    placeholder="Enter distance in km">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front" style="background: linear-gradient(135deg, #1e3c72, #2a5298); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-car" style="font-size: 5rem; color: #fff;"></i>
+                                </div>
+                                <div class="flip-card-back">
+                                    <h2>Travel Information</h2>
+                                    <label>How many kilometers did you drive?</label>
+                                    <select name="fuel_type" id="vehicle-type">
+                                        <option value="petrol">Petrol</option>
+                                        <option value="diesel">Diesel</option>
+                                        <option value="ev">Electric Vehicle</option>
+                                    </select>
+                                    <input type="number" name="car_distance" id="vehicle-distance"
+                                        placeholder="Enter distance in km">
 
-                                <label>How many kilometers did you travel using public transport?</label>
-                                <select name="transport_type" id="public-transport">
-                                    <option value="bus">Bus</option>
-                                    <option value="metro">Metro</option>
-                                    <option value="train">Train</option>
-                                </select>
-                                <input type="number" name="public_distance" id="public-distance"
-                                    placeholder="Enter distance in km">
+                                    <label>How many kilometers did you travel using public transport?</label>
+                                    <select name="transport_type" id="public-transport">
+                                        <option value="bus">Bus</option>
+                                        <option value="metro">Metro</option>
+                                        <option value="train">Train</option>
+                                    </select>
+                                    <input type="number" name="public_distance" id="public-distance"
+                                        placeholder="Enter distance in km">
 
-                                <label>How much distance did you cover by flight?</label>
-                                <select name="flight_type" id="flight-type">
-                                    <option value="short-haul">Short Haul (&lt; 4 hrs)</option>
-                                    <option value="long-haul">Long Haul (&gt; 4 hrs)</option>
-                                </select>
-                                <input type="number" name="flight_distance" id="flight-distance"
-                                    placeholder="Enter distance in km">
+                                    <label>How much distance did you cover by flight?</label>
+                                    <select name="flight_type" id="flight-type">
+                                        <option value="short-haul">Short Haul (&lt; 4 hrs)</option>
+                                        <option value="long-haul">Long Haul (&gt; 4 hrs)</option>
+                                    </select>
+                                    <input type="number" name="flight_distance" id="flight-distance"
+                                        placeholder="Enter distance in km">
 
-                                <button type="button" class="finalbuttons" onclick="showNextCard('card-two')"
-                                    id="firstbutton">Next</button>
+                                    <button type="button" class="finalbuttons" onclick="showNextCard('card-two')"
+                                        id="firstbutton">Next</button>
+                                </div>
                             </div>
                         </div>
 
@@ -169,6 +191,7 @@
                     </div>
                 </form>
             </div>
+            {% endif %}
         </div>
     </section>
 

@@ -53,6 +53,10 @@
             </div>
         </div>
         <div id="rightpart">
+            <div id="notification-banner" style="display: none; background: linear-gradient(45deg, #00b09b, #96c93d); color: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: center; align-items: center; justify-content: space-between;">
+                <span style="font-size: 1.2rem; font-weight: 600;"><i class="fa-solid fa-bell" style="margin-right: 10px;"></i> It has been over 15 days since your last calculation. Time to measure your carbon footprint!</span>
+                <a href="/calculator" style="display: inline-block; background: rgba(0,0,0,0.2); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-left: 20px; transition: background 0.3s;">Calculate Now</a>
+            </div>
             <div id="content1">
                 <p id="Text1"><b>Emissions Eye help individuals track, analyze, and <br> reduce their carbon footprint
                         through real-time <br>insights and actionable steps, promoting a <br>sustainable and
@@ -61,15 +65,29 @@
                 <img src="/static/images/HomePage Photo.png" alt="Carbon releasing" width="400rem" height="400rem" id="homephoto">
             </div>
             <div id="content2">
+                <div class="stats-container" style="display: flex; gap: 2rem; justify-content: center; margin-top: 2rem; text-align: center;">
+                    <div class="stat-box" style="background: #eef2f5; padding: 1.5rem; border-radius: 10px; width: 200px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <h3>Total Emissions</h3>
+                        <p id="total-emissions" style="font-size: 1.5rem; font-weight: bold; color: #2c3e50; margin-top: 0.5rem;">Loading...</p>
+                    </div>
+                    <div class="stat-box" style="background: #eef2f5; padding: 1.5rem; border-radius: 10px; width: 200px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <h3>Last Emission</h3>
+                        <p id="last-emission" style="font-size: 1.5rem; font-weight: bold; color: #2c3e50; margin-top: 0.5rem;">Loading...</p>
+                    </div>
+                    <div class="stat-box" style="background: #eef2f5; padding: 1.5rem; border-radius: 10px; width: 200px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <h3>Calculations</h3>
+                        <p id="total-calculations" style="font-size: 1.5rem; font-weight: bold; color: #2c3e50; margin-top: 0.5rem;">Loading...</p>
+                    </div>
+                </div>
                 <h1 id="slogan">Know your emissions, reduce with care,
                     A thriving future, fresh and fair!</h1>
             </div>
 
         </div>
 
-        </div>
     </section>
-
+    
+    <script src="/static/js/dashboard.js"></script>
 </body>
 
 </html>

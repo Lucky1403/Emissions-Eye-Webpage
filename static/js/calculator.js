@@ -1,11 +1,16 @@
 function flipCard() {
     let hiddenCards = document.querySelectorAll('.flip-card-hidden');
     hiddenCards.forEach(card => {
-        card.style.display = 'flex'; // Reveal the hidden cards
+        card.style.display = 'block'; // Reveal the hidden cards
     });
 
     // Hide the parent card
     document.getElementById('parent-card').style.display = 'none';
+    
+    // Automatically flip the first card
+    setTimeout(() => {
+        showNextCard('card-one');
+    }, 100);
 }
 
 function showNextCard(cardId) {

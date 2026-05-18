@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/d437d2e5a9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/calculator.css">
     <link rel="stylesheet" href="/static/css/result.css">
 </head>
 <body>
@@ -49,7 +50,11 @@
             </div>
         </div>
         <div id="rightpart">
-            <h2>Your Carbon Emission is </h2>
+            <div class="result-container">
+                <h1>Result</h1>
+                <p>Your Carbon Emission is <strong>{{ total_emission }}</strong> kg CO2</p>
+                <a href="{{ url_for('dashboard') }}" class="btn">Go to Dashboard</a>
+            </div>
         </div>
     </section>
 </body>
