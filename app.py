@@ -12,20 +12,18 @@ app.secret_key = "your_secret_key"
 def get_db_connection():
     db_url = os.environ.get("DATABASE_URL")
     if not db_url:
-        print("WARNING: DATABASE_URL not found. Database connection will fail.")
-        return None
+        return None, "WARNING: DATABASE_URL environment variable is missing."
     try:
         conn = psycopg2.connect(db_url)
-        return conn
+        return conn, None
     except Exception as e:
-        print(f"Error connecting to database: {e}")
-        return None
+        return None, str(e)
 
 # Function to Create Profile Table
 def create_tables():
-    conn = get_db_connection()
+    conn, err = get_db_connection()
     if not conn:
-        print("Could not connect to database for create_tables")
+        print(f"Could not connect to database for create_tables: {err}")
         return
     try:
         sqr = conn.cursor()
@@ -60,7 +58,7 @@ create_tables()
 
 # Function to Create User-Specific History Table
 def create_user_table(email):
-    conn = get_db_connection()
+    conn, err = get_db_connection()
     if not conn: return
     try:
         sqr = conn.cursor()
@@ -133,9 +131,9 @@ def login():
     email = request.form["email"]
     password = request.form["password"]
 
-    conn = get_db_connection()
+    conn, err = get_db_connection()
     if not conn:
-        return "Internal Server Error: Database Connection Failed", 500
+        return f"Internal Server Error: Database Connection Failed. Details: {err}", 500
     try:
         sqr = conn.cursor()
         sqr.execute("SELECT Email FROM profile WHERE Email=%s AND Password=%s", (email, password))
@@ -163,9 +161,9 @@ def signup():
         mobile = request.form.get("mobile", "")
         country = request.form.get("country", "")
 
-        conn = get_db_connection()
+        conn, err = get_db_connection()
         if not conn:
-            return "Internal Server Error: Database Connection Failed", 500
+            return f"Internal Server Error: Database Connection Failed. Details: {err}", 500
         
         try:
             sqr = conn.cursor()
