@@ -188,7 +188,7 @@ def calculator():
 
     days_left = 0
     try:
-        sqr.execute(f'SELECT EXTRACT(DAY FROM NOW() - Date_Time)::INTEGER FROM "{table_name}" ORDER BY Date_Time DESC LIMIT 1')
+        sqr.execute(f'SELECT CAST(EXTRACT(EPOCH FROM (NOW() - Date_Time)) / 86400 AS INTEGER) FROM "{table_name}" ORDER BY Date_Time DESC LIMIT 1')
         last_calc = sqr.fetchone()
         if last_calc and last_calc[0] is not None:
             days_passed = last_calc[0]
@@ -273,7 +273,7 @@ def get_dashboard_data():
 
         notify_calc_due = False
         if count > 0:
-            sqr.execute(f'SELECT EXTRACT(DAY FROM NOW() - Date_Time)::INTEGER FROM "{table_name}" ORDER BY Date_Time DESC LIMIT 1')
+            sqr.execute(f'SELECT CAST(EXTRACT(EPOCH FROM (NOW() - Date_Time)) / 86400 AS INTEGER) FROM "{table_name}" ORDER BY Date_Time DESC LIMIT 1')
             last_calc_days = sqr.fetchone()
             if last_calc_days and last_calc_days[0] is not None:
                 if last_calc_days[0] >= 15:
