@@ -17,39 +17,6 @@ EmissionsEye is a comprehensive web application designed to help individuals tra
 - **Database**: SQLite
 - **Icons & Fonts**: FontAwesome, Google Fonts (Outfit, Merriweather)
 
-## 💻 Local Installation & Setup
-
-To run EmissionsEye locally on your machine, follow these steps:
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/EmissionsEye.git
-   cd EmissionsEye
-   ```
-
-2. **Create a virtual environment (optional but recommended):**
-   ```bash
-   python -m venv venv
-   # On Windows:
-   venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-
-3. **Install the required dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run the Flask application:**
-   ```bash
-   python app.py
-   ```
-
-5. **Open in Browser:**
-   Visit `http://127.0.0.1:5000` to start tracking your emissions!
-
-
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/EmissionsEye/issues).
