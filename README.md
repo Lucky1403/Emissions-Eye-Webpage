@@ -20,7 +20,3 @@ EmissionsEye is a comprehensive web application designed to help individuals tra
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/EmissionsEye/issues).
-
-## 📜 License
-
-This project is open-source and available under the [MIT License](LICENSE).
